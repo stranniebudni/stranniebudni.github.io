@@ -1,3 +1,20 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js">
+
+gsap.from(".card", {
+  duration: 1,
+  opacity: 0,
+  y: 50,
+  ease: "power3.out"
+});
+
+
+
+
+</script>
+
+
+
+
 const texts = {
   ru: {
     name: "Нил",
