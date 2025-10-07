@@ -9,17 +9,64 @@
 <body>
   <div class="container">
     <div class="card">
-      <img src="avatar.jpg" alt="Фото" class="avatar">
-      <h1>Нил</h1>
-      <p class="subtitle">Студент надеюсь</p>
-      <div class="contacts">
-        <a href="mailto:luukiinii@gmail.com">My Email</a>
-        <a href="https://github.com/stranniebudni" target="_blank">My GitHub</a>
-        <a href="https://www.instagram.com/strannie_budni/" target="_blank">My Instagram</a>
-        <a href="https://t.me/Strannie_budni" target="_blank">My Telegram</a>
+      <div class="lang-switch">
+        <button onclick="setLang('ru')">🇷🇺 RU</button>
+        <button onclick="setLang('en')">🇬🇧 EN</button>
+        <button onclick="setLang('sr')">🇷🇸 SR</button>
+      </div>
 
+      <img src="avatar.jpg" alt="Фото" class="avatar">
+      <h1 id="name">Нил</h1>
+      <p id="subtitle" class="subtitle">Студент надеюсь</p>
+      <div class="contacts">
+        <a id="email" href="mailto:luukiinii@gmail.com">Моя почта</a>
+        <a id="github" href="https://github.com/stranniebudni" target="_blank">Мой GitHub</a>
+        <a id="instagram" href="https://www.instagram.com/strannie_budni/" target="_blank">Мой Instagram</a>
+        <a id="telegram" href="https://t.me/Strannie_budni" target="_blank">Мой Telegram</a>
       </div>
     </div>
   </div>
+
+  <script>
+    const texts = {
+      ru: {
+        name: "Нил",
+        subtitle: "Студент, надеюсь",
+        email: "Моя почта",
+        github: "Мой GitHub",
+        instagram: "Мой Instagram",
+        telegram: "Мой Telegram"
+      },
+      en: {
+        name: "Nil",
+        subtitle: "A student, hopefully",
+        email: "My Email",
+        github: "My GitHub",
+        instagram: "My Instagram",
+        telegram: "My Telegram"
+      },
+      sr: {
+        name: "Нил",
+        subtitle: "Student, valjda",
+        email: "Moj mejl",
+        github: "Moj GitHub",
+        instagram: "Moj Instagram",
+        telegram: "Moj Telegram"
+      }
+    };
+
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.getElementById('name').textContent = texts[lang].name;
+      document.getElementById('subtitle').textContent = texts[lang].subtitle;
+      document.getElementById('email').textContent = texts[lang].email;
+      document.getElementById('github').textContent = texts[lang].github;
+      document.getElementById('instagram').textContent = texts[lang].instagram;
+      document.getElementById('telegram').textContent = texts[lang].telegram;
+    }
+
+    const saved = localStorage.getItem('lang') || 'ru';
+    setLang(saved);
+  </script>
 </body>
 </html>
