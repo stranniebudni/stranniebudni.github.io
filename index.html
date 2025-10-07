@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Нил — персональный сайт</title>
   <link rel="stylesheet" href="style.css">
+  <!-- AOS для анимации при скролле -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-
 </head>
+
 <body>
   <div class="container">
-    <div class="card">
+    <div class="card" data-aos="fade-up">
       <div class="lang-switch">
         <button id="btn-ru" onclick="setLang('ru')">RU</button>
         <button id="btn-en" onclick="setLang('en')">EN</button>
         <button id="btn-sr" onclick="setLang('sr')">SR</button>
       </div>
 
-      <img src="avatar.jpg" alt="Фото" class="avatar">
-      <h1 id="name">Нил</h1>
-      <p id="subtitle" class="subtitle">Студент, надеюсь</p>
+      <img src="avatar.jpg" alt="Фото" class="avatar" data-aos="zoom-in" data-aos-delay="200">
+      <h1 id="name" data-aos="fade-right" data-aos-delay="400">Нил</h1>
+      <p id="subtitle" class="subtitle" data-aos="fade-left" data-aos-delay="600">Студент, надеюсь</p>
 
-      <div class="contacts">
+      <div class="contacts" data-aos="fade-up" data-aos-delay="800">
         <a id="email" href="mailto:luukiinii@gmail.com">Моя почта</a>
         <a id="github" href="https://github.com/stranniebudni" target="_blank">Мой GitHub</a>
         <a id="instagram" href="https://www.instagram.com/strannie_budni/" target="_blank">Мой Instagram</a>
@@ -31,7 +31,28 @@
     </div>
   </div>
 
+  <!-- Подключаем GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Подключаем AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <script>
+    // Инициализация AOS
+    AOS.init({
+      duration: 1000, // скорость анимации
+      once: true,     // анимация только при первом появлении
+    });
+
+    // Анимация при загрузке с GSAP
+    gsap.from(".card", {
+      duration: 1,
+      opacity: 0,
+      y: 50,
+      ease: "power3.out"
+    });
+
+    // --- Многоязычность ---
     const texts = {
       ru: {
         name: "Нил",
@@ -61,12 +82,10 @@
 
     function setLang(lang) {
       localStorage.setItem('lang', lang);
-      // обновление текста
       for (const key in texts[lang]) {
         if (document.getElementById(key))
           document.getElementById(key).textContent = texts[lang][key];
       }
-      // подсветка кнопки
       document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
       document.getElementById('btn-' + lang).classList.add('active');
     }
@@ -74,23 +93,5 @@
     const saved = localStorage.getItem('lang') || 'ru';
     setLang(saved);
   </script>
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
-
-
-
-
 </body>
-
-<div class="card" data-aos="fade-up">
-  ...
-</div>
-
-
-
-
-
 </html>
