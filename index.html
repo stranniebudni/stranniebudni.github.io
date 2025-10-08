@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Нил — персональный сайт</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- AOS для анимации при скролле -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <!-- SEO -->
+  <!-- SEO метатеги -->
   <meta name="description" content="Персональный сайт Нила Мистрюкова — информация о проектах, навыках и контактах.">
+  <meta name="keywords" content="Нил Мистрюков, портфолио, проекты, резюме, программист, студент">
+  <meta name="author" content="Нил Мистрюков">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Нил Мистрюков — Персональный сайт">
@@ -18,12 +18,15 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://stranniebudni.github.io/">
   <meta property="og:image" content="avatar.jpg">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Нил Мистрюков — Персональный сайт">
+  <meta name="twitter:description" content="Проекты, навыки и контактная информация Нила Мистрюкова.">
+  <meta name="twitter:image" content="avatar.jpg">
 </head>
 
 <body>
-  <!-- Canvas для частиц/эффектов -->
-  <canvas id="background"></canvas>
-
   <div class="container">
     <div class="card" data-aos="fade-up">
       <div class="lang-switch">
@@ -45,9 +48,77 @@
     </div>
   </div>
 
-  <!-- Скрипты -->
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- AOS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="script.js"></script>
+
+  <script>
+    // Инициализация AOS
+    AOS.init({ duration: 1000, once: true });
+
+    // Анимация появления карточки
+    gsap.from(".card", { duration: 1, opacity: 0, y: 50, ease: "power3.out" });
+
+    // --- Многоязычность ---
+    const texts = {
+      ru: {
+        name: "Нил Мистрюков",
+        subtitle: "19 лет. Родился в Москве, Россия. В данный момент живу в Белграде, Сербия.",
+        email: "Моя почта",
+        github: "Мой GitHub",
+        instagram: "Мой Instagram",
+        telegram: "Мой Telegram"
+      },
+      en: {
+        name: "Nil Mistriukov",
+        subtitle: "I am 19 years old. Born in Moscow, Russia. Currently living in Belgrade, Serbia.",
+        email: "My Email",
+        github: "My GitHub",
+        instagram: "My Instagram",
+        telegram: "My Telegram"
+      },
+      sr: {
+        name: "Нил Мистрјуков",
+        subtitle: "19 година. Рођен у Москви, Русија. Тренутно живим у Београду, Србија.",
+        email: "Moj mejl",
+        github: "Moj GitHub",
+        instagram: "Moj Instagram",
+        telegram: "Moj Telegram"
+      }
+    };
+
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      for (const key in texts[lang]) {
+        const el = document.getElementById(key);
+        if(el) el.textContent = texts[lang][key];
+      }
+      document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + lang).classList.add('active');
+    }
+
+    setLang(localStorage.getItem('lang') || 'ru');
+
+    // --- Параллакс движения мыши ---
+    const card = document.querySelector('.card');
+    const avatar = document.querySelector('.avatar');
+    const name = document.getElementById('name');
+    const subtitle = document.getElementById('subtitle');
+
+    if(card) {
+      const elems = [avatar, name, subtitle].filter(e => e !== null);
+      document.addEventListener('mousemove', e => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 30;
+        const y = (e.clientY / window.innerHeight - 0.5) * 30;
+        gsap.to(card, { rotationY: x, rotationX: -y, transformPerspective: 500, transformOrigin: "center", duration: 0.5, ease: "power1.out" });
+        gsap.to(elems, { x: x/4, y: -y/4, duration: 0.5, ease: "power1.out" });
+      });
+      document.addEventListener('mouseleave', () => {
+        gsap.to(card, { rotationX:0, rotationY:0, duration:0.5, ease:"power1.out" });
+        gsap.to(elems, { x:0, y:0, duration:0.5, ease:"power1.out" });
+      });
+    }
+  </script>
 </body>
 </html>
