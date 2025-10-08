@@ -94,4 +94,79 @@ h1 {
 
 .lang-switch button.active {
   background: rgba(0, 255, 255, 0.35);
-  border-color: rgba(0
+  border-color: rgba(0,255,255,0.7);
+  box-shadow: 0 0 20px rgba(0,255,255,0.5);
+}
+
+/* Контакты */
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 18px;
+  margin-top: 15px;
+}
+
+.contacts a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.contacts a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: #00ffff;
+  transition: 0.3s ease;
+}
+
+.contacts a:hover::after {
+  width: 100%;
+}
+
+.contacts a:hover {
+  color: #00ffff;
+  text-shadow: 0 0 12px #00ffff;
+  transform: translateY(-2px);
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .card {
+    padding: 30px 20px;
+    max-width: 90%;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .lang-switch {
+    gap: 8px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fadeIn 1s ease-out forwards;
+}
