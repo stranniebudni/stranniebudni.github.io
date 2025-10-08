@@ -1,32 +1,38 @@
-/* ========== Шрифты ========== */
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite; /* Динамический градиент */
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  box-sizing: border-box;
-  transition: background 0.5s ease;
-  overflow: hidden; /* для частиц и эффектов */
+  overflow: hidden; /* Canvas не прокручивается */
+  position: relative;
 }
 
-/* ========== Контейнер ========== */
+/* Canvas на заднем фоне */
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Контейнер */
 .container {
   text-align: center;
+  z-index: 1; /* Над canvas */
   position: relative;
-  z-index: 1;
 }
 
-/* ========== Карточка с glassmorphism ========== */
+/* Карточка */
 .card {
   background: rgba(255, 255, 255, 0.08);
-  border-radius: 25px;
+  border-radius: 20px;
   padding: 40px 30px;
   max-width: 420px;
   box-shadow: 0 20px 40px rgba(150,150,150,0.25);
@@ -39,14 +45,13 @@ body {
   animation: fadeIn 1s ease-out forwards;
 }
 
-/* Мягкий hover эффект */
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 15px 45px rgba(0,255,255,0.15);
   background: linear-gradient(135deg, rgba(0,255,255,0.1), rgba(255,255,255,0.08));
 }
 
-/* ========== Аватар ========== */
+/* Аватар */
 .avatar {
   width: 120px;
   height: 120px;
@@ -62,33 +67,12 @@ body {
   box-shadow: 0 0 20px rgba(0,255,255,0.4);
 }
 
-/* ========== Заголовок и подзаголовок с 3D текстом ========== */
-h1 {
-  font-size: 2.2rem;
-  margin: 10px 0 0;
-  letter-spacing: 1px;
-  color: #00ffff;
-  text-shadow: 0 1px 1px #0ff, 0 2px 3px rgba(0,255,255,0.2), 0 4px 6px rgba(0,255,255,0.15);
-  transform-style: preserve-3d;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
+/* Заголовок и подзаголовок */
+h1 { font-size: 2.2rem; margin: 10px 0 0; letter-spacing: 1px; transition: transform 0.3s ease, color 0.3s ease; }
+.subtitle { font-size: 1rem; opacity: 0.85; margin-bottom: 20px; line-height: 1.4; transition: transform 0.3s ease, opacity 0.3s ease; }
 
-.subtitle {
-  font-size: 1rem;
-  opacity: 0.85;
-  margin-bottom: 20px;
-  line-height: 1.4;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  text-shadow: 0 1px 2px rgba(0,255,255,0.3);
-}
-
-/* ========== Выбор языка ========== */
-.lang-switch {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
+/* Выбор языка */
+.lang-switch { display: flex; gap: 10px; margin-bottom: 10px; }
 .lang-switch button {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255,255,255,0.3);
@@ -99,102 +83,24 @@ h1 {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+.lang-switch button:hover { background: rgba(0, 255, 255, 0.2); box-shadow: 0 0 10px rgba(0,255,255,0.25); }
+.lang-switch button.active { background: rgba(0, 255, 255, 0.25); border-color: rgba(0,255,255,0.5); box-shadow: 0 0 15px rgba(0,255,255,0.3); }
 
-.lang-switch button:hover {
-  background: rgba(0, 255, 255, 0.2);
-  box-shadow: 0 0 10px rgba(0,255,255,0.25);
-}
+/* Контакты */
+.contacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 18px; margin-top: 15px; }
+.contacts a { display: inline-block; text-decoration: none; color: #fff; font-weight: 600; position: relative; transition: all 0.3s ease; }
+.contacts a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0%; height: 2px; background: #00ffff; transition: 0.3s ease; }
+.contacts a:hover::after { width: 100%; }
+.contacts a:hover { color: #00ffff; text-shadow: 0 0 8px #00ffff; transform: translateY(-2px); }
 
-.lang-switch button.active {
-  background: rgba(0, 255, 255, 0.25);
-  border-color: rgba(0,255,255,0.5);
-  box-shadow: 0 0 15px rgba(0,255,255,0.3);
-}
+/* Анимация */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ========== Контакты ========== */
-.contacts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px 18px;
-  margin-top: 15px;
-}
-
-.contacts a {
-  display: inline-block;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 600;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.contacts a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 0%;
-  height: 2px;
-  background: #00ffff;
-  transition: 0.3s ease;
-}
-
-.contacts a:hover::after {
-  width: 100%;
-}
-
-.contacts a:hover {
-  color: #00ffff;
-  text-shadow: 0 0 8px #00ffff;
-  transform: translateY(-2px);
-}
-
-/* ========== Адаптивность ========== */
+/* Адаптивность */
 @media (max-width: 480px) {
-  .card {
-    padding: 30px 20px;
-    max-width: 90%;
-  }
-
-  .avatar {
-    width: 100px;
-    height: 100px;
-  }
-
-  .lang-switch {
-    gap: 8px;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  .subtitle {
-    font-size: 0.95rem;
-  }
-}
-
-/* ========== Анимация появления ========== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ========== Анимация градиента фона (пункт 3) ========== */
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ========== Подготовка для WebGL/Canvas (пункт 9) ========== */
-#effectCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* чтобы не мешал мыши */
-  z-index: 0;
+  .card { padding: 30px 20px; max-width: 90%; }
+  .avatar { width: 100px; height: 100px; }
+  .lang-switch { gap: 8px; }
+  h1 { font-size: 1.8rem; }
+  .subtitle { font-size: 0.95rem; }
 }

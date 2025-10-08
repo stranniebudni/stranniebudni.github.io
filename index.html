@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Нил — персональный сайт</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- AOS для анимации при скролле -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <!-- SEO метатеги -->
+  <!-- SEO -->
   <meta name="description" content="Персональный сайт Нила Мистрюкова — информация о проектах, навыках и контактах.">
-  <meta name="keywords" content="Нил Мистрюков, портфолио, проекты, резюме, программист, студент">
-  <meta name="author" content="Нил Мистрюков">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Нил Мистрюков — Персональный сайт">
@@ -18,17 +18,11 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://stranniebudni.github.io/">
   <meta property="og:image" content="avatar.jpg">
-
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Нил Мистрюков — Персональный сайт">
-  <meta name="twitter:description" content="Проекты, навыки и контактная информация Нила Мистрюкова.">
-  <meta name="twitter:image" content="avatar.jpg">
 </head>
 
 <body>
-  <!-- Canvas для частиц -->
-  <canvas id="effectCanvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
+  <!-- Canvas для частиц/эффектов -->
+  <canvas id="background"></canvas>
 
   <div class="container">
     <div class="card" data-aos="fade-up">
@@ -51,12 +45,9 @@
     </div>
   </div>
 
-  <!-- GSAP -->
+  <!-- Скрипты -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <!-- AOS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-  <!-- Основной JS -->
   <script src="script.js"></script>
 </body>
 </html>
