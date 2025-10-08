@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+/*
+  ВАЖНО: Вместо @import в CSS, подключите шрифты в <head> вашего HTML-файла:
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+*/
 
 body {
   margin: 0;
@@ -10,6 +15,7 @@ body {
   align-items: center;
   min-height: 100vh;
   padding: 20px;
+  box-sizing: border-box; /* Рекомендуется для лучшего контроля над размерами */
   transition: background 0.5s ease;
 }
 
@@ -31,11 +37,12 @@ body {
   align-items: center;
   gap: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  animation: fadeIn 1s ease-out forwards;
 }
 
 .card:hover {
-  transform: translateY(-3px); /* менее резкий подъём */
-  box-shadow: 0 15px 45px rgba(0,255,255,0.15); /* мягкая подсветка */
+  transform: translateY(-3px);
+  box-shadow: 0 15px 45px rgba(0,255,255,0.15);
   background: linear-gradient(135deg, rgba(0,255,255,0.1), rgba(255,255,255,0.08));
 }
 
@@ -110,6 +117,7 @@ h1 {
 }
 
 .contacts a {
+  display: inline-block; /* Добавлено для корректной работы transform */
   text-decoration: none;
   color: #fff;
   font-weight: 600;
@@ -167,8 +175,4 @@ h1 {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-.card {
-  animation: fadeIn 1s ease-out forwards;
 }
