@@ -205,3 +205,52 @@ h1 {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* --- Тёмная/светлая тема --- */
+body.light {
+  background: linear-gradient(135deg, #f0f5f9, #d9e2ec, #bcccdc);
+  color: #222;
+}
+
+body.light .card {
+  background: rgba(255, 255, 255, 0.6);
+  color: #222;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+body.light .card:hover {
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.6));
+}
+
+body.light .contacts a {
+  color: #222;
+}
+
+body.light .contacts a:hover {
+  color: #00aaff;
+  text-shadow: 0 0 8px #00aaff;
+}
+
+body.light .lang-switch button {
+  color: #222;
+  border-color: rgba(0,0,0,0.2);
+}
+
+body.light .lang-switch button.active,
+body.light .lang-switch button:hover {
+  background: rgba(0, 170, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0,170,255,0.2);
+}
+
+/* --- Анимация мягкого движения фона --- */
+body {
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
