@@ -1,31 +1,39 @@
-/*
-  ВАЖНО: Вместо @import в CSS, подключите шрифты в <head> вашего HTML-файла:
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-*/
+/* Подключение шрифта через head, @import не нужен */
 
+/* Фон с анимацией градиента */
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  box-sizing: border-box; /* Рекомендуется для лучшего контроля над размерами */
-  transition: background 0.5s ease;
+  box-sizing: border-box;
+  background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c2a3a);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* Анимация градиента */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Контейнер */
 .container {
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
-/* Карточка с glassmorphism */
+/* Карточка glassmorphism с мягким hover и свечением */
 .card {
+  position: relative;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 25px;
   padding: 40px 30px;
@@ -36,13 +44,14 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
   animation: fadeIn 1s ease-out forwards;
 }
 
+/* Hover эффект карточки */
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 45px rgba(0,255,255,0.15);
+  box-shadow: 0 20px 50px rgba(0,255,255,0.15), 0 0 30px rgba(0,255,255,0.1);
   background: linear-gradient(135deg, rgba(0,255,255,0.1), rgba(255,255,255,0.08));
 }
 
@@ -55,19 +64,21 @@ body {
   border: 3px solid rgba(255,255,255,0.3);
   margin-top: 10px;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  z-index: 2;
 }
 
 .avatar:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(0,255,255,0.4);
+  box-shadow: 0 0 25px rgba(0,255,255,0.4);
 }
 
-/* Заголовок и подзаголовок */
+/* Заголовок и подзаголовок с плавной типографикой */
 h1 {
   font-size: 2.2rem;
   margin: 10px 0 0;
   letter-spacing: 1px;
-  transition: transform 0.3s ease, color 0.3s ease;
+  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .subtitle {
@@ -75,7 +86,7 @@ h1 {
   opacity: 0.85;
   margin-bottom: 20px;
   line-height: 1.4;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, text-shadow 0.3s ease;
 }
 
 /* Выбор языка */
@@ -107,17 +118,19 @@ h1 {
   box-shadow: 0 0 15px rgba(0,255,255,0.3);
 }
 
-/* Контакты */
+/* Контакты с hover-анимацией */
 .contacts {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px 18px;
   margin-top: 15px;
+  position: relative;
+  z-index: 2;
 }
 
 .contacts a {
-  display: inline-block; /* Добавлено для корректной работы transform */
+  display: inline-block;
   text-decoration: none;
   color: #fff;
   font-weight: 600;
@@ -142,36 +155,52 @@ h1 {
 
 .contacts a:hover {
   color: #00ffff;
-  text-shadow: 0 0 8px #00ffff;
-  transform: translateY(-2px);
+  text-shadow: 0 0 10px #00ffff;
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Декоративные линии и круги */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,255,255,0.3);
+  animation: rotateCircle 8s linear infinite;
+  z-index: 0;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,255,255,0.2);
+  animation: rotateCircle 12s linear infinite reverse;
+  z-index: 0;
+}
+
+@keyframes rotateCircle {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* Адаптивность */
 @media (max-width: 480px) {
-  .card {
-    padding: 30px 20px;
-    max-width: 90%;
-  }
-
-  .avatar {
-    width: 100px;
-    height: 100px;
-  }
-
-  .lang-switch {
-    gap: 8px;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  .subtitle {
-    font-size: 0.95rem;
-  }
+  .card { padding: 30px 20px; max-width: 90%; }
+  .avatar { width: 100px; height: 100px; }
+  .lang-switch { gap: 8px; }
+  h1 { font-size: 1.8rem; }
+  .subtitle { font-size: 0.95rem; }
 }
 
-/* Анимация появления */
+/* Появление */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
