@@ -68,29 +68,7 @@
   }
 
   // --- Тёмная/светлая тема ---
-  const themeToggle = document.createElement('button');
-  themeToggle.textContent = 'Тема';
-  themeToggle.style.position = 'fixed';
-  themeToggle.style.top = '20px';
-  themeToggle.style.right = '20px';
-  themeToggle.style.padding = '8px 12px';
-  themeToggle.style.border = 'none';
-  themeToggle.style.borderRadius = '8px';
-  themeToggle.style.cursor = 'pointer';
-  themeToggle.style.background = 'rgba(0,255,255,0.15)';
-  themeToggle.style.color = '#fff';
-  themeToggle.style.fontWeight = '600';
-  themeToggle.style.transition = 'all 0.3s ease';
-  document.body.appendChild(themeToggle);
 
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  if (savedTheme === 'light') document.body.classList.add('light');
-
-  themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('light');
-    const theme = document.body.classList.contains('light') ? 'light' : 'dark';
-    localStorage.setItem('theme', theme);
-  });
 
   // --- Мягкая анимация при наведении ---
   const hoverElems = [card, ...document.querySelectorAll('.contacts a')];

@@ -17,6 +17,11 @@ body {
   transition: background 0.5s ease, color 0.5s ease;
 }
 
+/* Плавная смена цветов при переключении темы */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 /* Анимация градиента */
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
