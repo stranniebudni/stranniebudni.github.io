@@ -1,11 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
 <script>
-  // --- Инициализация AOS ---
-  AOS.init({ duration: 1000, once: true });
-
-  // --- GSAP анимация появления карточки ---
+  // --- Анимация появления карточки с GSAP ---
   gsap.from(".card", { duration: 1, opacity: 0, y: 50, ease: "power3.out" });
 
   // --- Многоязычность ---
@@ -38,81 +33,75 @@
 
   function setLang(lang) {
     localStorage.setItem('lang', lang);
+    if (!texts[lang]) return;
     for (const key in texts[lang]) {
       const el = document.getElementById(key);
-      if(el) el.textContent = texts[lang][key];
+      if (el) el.textContent = texts[lang][key];
     }
     document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
     document.getElementById('btn-' + lang).classList.add('active');
   }
 
-  // Устанавливаем язык при загрузке
-  setLang(localStorage.getItem('lang') || 'ru');
+  const savedLang = localStorage.getItem('lang') || 'ru';
+  setLang(savedLang);
 
-  // --- Параллакс движения мыши для карточки и элементов ---
+  // --- Параллакс при движении мыши ---
   const card = document.querySelector('.card');
   const avatar = document.querySelector('.avatar');
   const name = document.getElementById('name');
   const subtitle = document.getElementById('subtitle');
+  const elementsToAnimate = [avatar, name, subtitle].filter(el => el !== null);
 
-  if(card) {
-    const elems = [avatar, name, subtitle].filter(e => e !== null);
-
-    document.addEventListener('mousemove', e => {
+  if (card) {
+    document.addEventListener('mousemove', (e) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 30;
       const y = (e.clientY / window.innerHeight - 0.5) * 30;
 
       gsap.to(card, { rotationY: x, rotationX: -y, transformPerspective: 500, transformOrigin: "center", duration: 0.5, ease: "power1.out" });
-      gsap.to(elems, { x: x/4, y: -y/4, duration: 0.5, ease: "power1.out" });
+      gsap.to(elementsToAnimate, { x: x / 4, y: -y / 4, duration: 0.5, ease: "power1.out" });
     });
 
     document.addEventListener('mouseleave', () => {
-      gsap.to(card, { rotationX:0, rotationY:0, duration:0.5, ease:"power1.out" });
-      gsap.to(elems, { x:0, y:0, duration:0.5, ease:"power1.out" });
+      gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.5, ease: "power1.out" });
+      gsap.to(elementsToAnimate, { x: 0, y: 0, duration: 0.5, ease: "power1.out" });
     });
   }
 
-  // --- Пункт 9: интерактивные линии между курсором и элементами ---
-  const linesContainer = document.createElement('canvas');
-  linesContainer.classList.add('lines-canvas');
-  document.body.appendChild(linesContainer);
-  const ctx = linesContainer.getContext('2d');
+  // --- Тёмная/светлая тема ---
+  const themeToggle = document.createElement('button');
+  themeToggle.textContent = 'Тема';
+  themeToggle.style.position = 'fixed';
+  themeToggle.style.top = '20px';
+  themeToggle.style.right = '20px';
+  themeToggle.style.padding = '8px 12px';
+  themeToggle.style.border = 'none';
+  themeToggle.style.borderRadius = '8px';
+  themeToggle.style.cursor = 'pointer';
+  themeToggle.style.background = 'rgba(0,255,255,0.15)';
+  themeToggle.style.color = '#fff';
+  themeToggle.style.fontWeight = '600';
+  themeToggle.style.transition = 'all 0.3s ease';
+  document.body.appendChild(themeToggle);
 
-  function resizeCanvas() {
-    linesContainer.width = window.innerWidth;
-    linesContainer.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  if (savedTheme === 'light') document.body.classList.add('light');
 
-  let mouse = { x: 0, y: 0 };
-  document.addEventListener('mousemove', e => mouse = { x: e.clientX, y: e.clientY });
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    const theme = document.body.classList.contains('light') ? 'light' : 'dark';
+    localStorage.setItem('theme', theme);
+  });
 
-  function drawLines() {
-    ctx.clearRect(0, 0, linesContainer.width, linesContainer.height);
+  // --- Мягкая анимация при наведении ---
+  const hoverElems = [card, ...document.querySelectorAll('.contacts a')];
+  hoverElems.forEach(el => {
+    el.addEventListener('mouseenter', () => gsap.to(el, { scale: 1.03, duration: 0.4, ease: "power2.out" }));
+    el.addEventListener('mouseleave', () => gsap.to(el, { scale: 1, duration: 0.4, ease: "power2.out" }));
+  });
 
-    const cards = [card];
-    cards.forEach(c => {
-      if(!c) return;
-      const rect = c.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-
-      const dx = mouse.x - cx;
-      const dy = mouse.y - cy;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-
-      if(dist < 300) {
-        ctx.beginPath();
-        ctx.moveTo(mouse.x, mouse.y);
-        ctx.lineTo(cx, cy);
-        ctx.strokeStyle = `rgba(0,255,255,${1 - dist/300})`;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-      }
-    });
-
-    requestAnimationFrame(drawLines);
-  }
-  drawLines();
+  // --- Мягкое появление контактов ---
+  const contacts = document.querySelectorAll('.contacts a');
+  contacts.forEach((el, i) => {
+    gsap.from(el, { opacity: 0, y: 10, duration: 0.8, delay: 0.2 * i, ease: "power2.out" });
+  });
 </script>
