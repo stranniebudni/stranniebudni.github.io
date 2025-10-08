@@ -1,9 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script>
-  // --- Анимация появления карточки с GSAP ---
-  gsap.from(".card", { duration: 1, opacity: 0, y: 50, ease: "power3.out" });
 
-  // --- Многоязычность ---
+<script>
+  // ================= Многоязычность =================
   const texts = {
     ru: {
       name: "Нил Мистрюков",
@@ -33,10 +31,9 @@
 
   function setLang(lang) {
     localStorage.setItem('lang', lang);
-    if (!texts[lang]) return;
     for (const key in texts[lang]) {
       const el = document.getElementById(key);
-      if (el) el.textContent = texts[lang][key];
+      if(el) el.textContent = texts[lang][key];
     }
     document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
     document.getElementById('btn-' + lang).classList.add('active');
@@ -45,63 +42,89 @@
   const savedLang = localStorage.getItem('lang') || 'ru';
   setLang(savedLang);
 
-  // --- Параллакс при движении мыши ---
+  // ================= GSAP-анимации =================
   const card = document.querySelector('.card');
   const avatar = document.querySelector('.avatar');
-  const name = document.getElementById('name');
-  const subtitle = document.getElementById('subtitle');
-  const elementsToAnimate = [avatar, name, subtitle].filter(el => el !== null);
+  const nameEl = document.getElementById('name');
+  const subtitleEl = document.getElementById('subtitle');
+  const elementsToAnimate = [avatar, nameEl, subtitleEl].filter(el => el !== null);
 
-  if (card) {
-    document.addEventListener('mousemove', (e) => {
+  // Появление карточки
+  gsap.from(".card", { duration: 1, opacity: 0, y: 50, ease: "power3.out" });
+
+  // Параллакс при движении мыши
+  if(card) {
+    document.addEventListener('mousemove', e => {
       const x = (e.clientX / window.innerWidth - 0.5) * 30;
       const y = (e.clientY / window.innerHeight - 0.5) * 30;
 
       gsap.to(card, { rotationY: x, rotationX: -y, transformPerspective: 500, transformOrigin: "center", duration: 0.5, ease: "power1.out" });
-      gsap.to(elementsToAnimate, { x: x / 4, y: -y / 4, duration: 0.5, ease: "power1.out" });
+      if(elementsToAnimate.length)
+        gsap.to(elementsToAnimate, { x: x/4, y: -y/4, duration: 0.5, ease: "power1.out" });
     });
 
     document.addEventListener('mouseleave', () => {
-      gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.5, ease: "power1.out" });
-      gsap.to(elementsToAnimate, { x: 0, y: 0, duration: 0.5, ease: "power1.out" });
+      gsap.to(card, { rotationX:0, rotationY:0, duration:0.5, ease:"power1.out" });
+      if(elementsToAnimate.length)
+        gsap.to(elementsToAnimate, { x:0, y:0, duration:0.5, ease:"power1.out" });
     });
   }
 
-  // --- Тёмная/светлая тема ---
-  const themeToggle = document.createElement('button');
-  themeToggle.textContent = 'Тема';
-  themeToggle.style.position = 'fixed';
-  themeToggle.style.top = '20px';
-  themeToggle.style.right = '20px';
-  themeToggle.style.padding = '8px 12px';
-  themeToggle.style.border = 'none';
-  themeToggle.style.borderRadius = '8px';
-  themeToggle.style.cursor = 'pointer';
-  themeToggle.style.background = 'rgba(0,255,255,0.15)';
-  themeToggle.style.color = '#fff';
-  themeToggle.style.fontWeight = '600';
-  themeToggle.style.transition = 'all 0.3s ease';
-  document.body.appendChild(themeToggle);
+  // ================= Динамический фон =================
+  const body = document.body;
+  document.addEventListener('mousemove', e => {
+    const xPercent = e.clientX / window.innerWidth;
+    const yPercent = e.clientY / window.innerHeight;
 
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  if (savedTheme === 'light') document.body.classList.add('light');
-
-  themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('light');
-    const theme = document.body.classList.contains('light') ? 'light' : 'dark';
-    localStorage.setItem('theme', theme);
+    // Меняем угол градиента плавно
+    body.style.background = `linear-gradient(${135 + xPercent*50}deg, rgba(15,32,39,1), rgba(32,58,67,1), rgba(44,83,100,1))`;
   });
 
-  // --- Мягкая анимация при наведении ---
-  const hoverElems = [card, ...document.querySelectorAll('.contacts a')];
-  hoverElems.forEach(el => {
-    el.addEventListener('mouseenter', () => gsap.to(el, { scale: 1.03, duration: 0.4, ease: "power2.out" }));
-    el.addEventListener('mouseleave', () => gsap.to(el, { scale: 1, duration: 0.4, ease: "power2.out" }));
-  });
+  // ================= Canvas для эффектов (пункт 9) =================
+  const canvas = document.createElement('canvas');
+  canvas.id = 'effectCanvas';
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  let particles = [];
 
-  // --- Мягкое появление контактов ---
-  const contacts = document.querySelectorAll('.contacts a');
-  contacts.forEach((el, i) => {
-    gsap.from(el, { opacity: 0, y: 10, duration: 0.8, delay: 0.2 * i, ease: "power2.out" });
-  });
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random()*canvas.width;
+      this.y = Math.random()*canvas.height;
+      this.size = Math.random()*3 + 1;
+      this.speedX = (Math.random()-0.5)*1;
+      this.speedY = (Math.random()-0.5)*1;
+      this.color = `rgba(0,255,255,${Math.random()*0.5+0.2})`;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if(this.x<0 || this.x>canvas.width || this.y<0 || this.y>canvas.height) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+  }
+
+  for(let i=0;i<150;i++) particles.push(new Particle());
+
+  function animateParticles() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
 </script>
