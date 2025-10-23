@@ -110,27 +110,21 @@ body {
 /* =========================================================
    THEME TOGGLE (пилюля, центр над карточкой)
    ========================================================= */
-.theme-toggle {
-  position: absolute;
-  left: 50%;
-  top: -14px;
-  transform: translateX(-50%);
-
-  padding: 6px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.30);
-  border-radius: 999px;
-
-  font-weight: 700;
-  cursor: pointer;
-
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-
-  transition: background-color 0.25s ease,
-              box-shadow 0.25s ease,
-              transform 0.25s ease;
+.theme-toggle{
+  position:absolute;
+  left:50%;
+  top:-32px;               /* было: -14px */
+  transform:translateX(-50%);
+  padding:6px 14px;
+  border:1px solid rgba(255,255,255,.30);
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:700;
+  background:rgba(255,255,255,.12);
+  color:var(--text);
+  backdrop-filter:blur(8px);
+  box-shadow:0 6px 16px rgba(0,0,0,.15);
+  z-index:10;              /* гарантируем поверх карточки */
 }
 
 .theme-toggle:hover {
