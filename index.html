@@ -1,157 +1,69 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Нил — визитка</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <!-- SEO метатеги -->
-  <meta name="description" content="Персональный сайт Нила Мистрюкова — информация о проектах, навыках и контактах.">
-  <meta name="keywords" content="Нил Мистрюков, портфолио, проекты, резюме, программист, студент">
-  <meta name="author" content="Нил Мистрюков">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- SEO -->
+  <meta name="description" content="Персональный сайт Нила Мистрюкова — информация о проектах, навыках и контактах." />
+  <meta name="keywords" content="Нил Мистрюков, портфолио, проекты, резюме, программист, студент" />
+  <meta name="author" content="Нил Мистрюков" />
+  <meta name="theme-color" content="#0f2027" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Нил Мистрюков — Персональный сайт">
-  <meta property="og:description" content="Проекты, навыки и контактная информация Нила Мистрюкова.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://stranniebudni.github.io/">
-  <meta property="og:image" content="avatar.jpg">
+  <meta property="og:title" content="Нил Мистрюков — Персональный сайт" />
+  <meta property="og:description" content="Проекты, навыки и контактная информация Нила Мистрюкова." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://stranniebudni.github.io/" />
+  <!-- Лучше абсолютная ссылка на изображение -->
+  <meta property="og:image" content="https://stranniebudni.github.io/avatar.jpg" />
 
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Нил Мистрюков — Персональный сайт">
-  <meta name="twitter:description" content="Проекты, навыки и контактная информация Нила Мистрюкова.">
-  <meta name="twitter:image" content="avatar.jpg">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Нил Мистрюков — Персональный сайт" />
+  <meta name="twitter:description" content="Проекты, навыки и контактная информация Нила Мистрюкова." />
+  <meta name="twitter:image" content="https://stranniebudni.github.io/avatar.jpg" />
 </head>
 
 <body>
   <div class="container">
     <div class="card" data-aos="fade-up">
-      <div class="lang-switch">
-        <button id="btn-ru" onclick="setLang('ru')">RU</button>
-        <button id="btn-en" onclick="setLang('en')">EN</button>
-        <button id="btn-sr" onclick="setLang('sr')">SR</button>
-      </div>
+      <nav class="lang-switch" aria-label="Смена языка">
+        <button id="btn-ru" type="button" onclick="setLang('ru')" aria-pressed="true">RU</button>
+        <button id="btn-en" type="button" onclick="setLang('en')" aria-pressed="false">EN</button>
+        <button id="btn-sr" type="button" onclick="setLang('sr')" aria-pressed="false">SR</button>
+      </nav>
 
-      <img src="avatar.jpg" alt="Фото" class="avatar" data-aos="zoom-in" data-aos-delay="200">
+      <img
+        src="avatar.jpg"
+        alt="Фото Нила"
+        class="avatar"
+        width="240"
+        height="240"
+        decoding="async"
+        data-aos="zoom-in"
+        data-aos-delay="200"
+      />
+
       <h1 id="name" data-aos="fade-right" data-aos-delay="400">Нил</h1>
       <p id="subtitle" class="subtitle" data-aos="fade-left" data-aos-delay="600">Студент, надеюсь</p>
 
       <div class="contacts" data-aos="fade-up" data-aos-delay="800">
         <a id="email" href="mailto:luukiinii@gmail.com">Моя почта</a>
-        <a id="github" href="https://github.com/stranniebudni" target="_blank">Мой GitHub</a>
-        <a id="instagram" href="https://www.instagram.com/strannie_budni/" target="_blank">Мой Instagram</a>
-        <a id="telegram" href="https://t.me/Strannie_budni" target="_blank">Мой Telegram</a>
+        <a id="github" href="https://github.com/stranniebudni" target="_blank" rel="noopener noreferrer">Мой GitHub</a>
+        <a id="instagram" href="https://www.instagram.com/strannie_budni/" target="_blank" rel="noopener noreferrer">Мой Instagram</a>
+        <a id="telegram" href="https://t.me/Strannie_budni" target="_blank" rel="noopener noreferrer">Мой Telegram</a>
       </div>
     </div>
   </div>
 
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <!-- AOS -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-  <script>
-    // Инициализация AOS
-    AOS.init({ duration: 1000, once: true });
-
-    // Анимация появления карточки
-    gsap.from(".card", { duration: 1, opacity: 0, y: 50, ease: "power3.out" });
-
-    // --- Многоязычность ---
-    const texts = {
-      ru: {
-        name: "Нил Мистрюков",
-        subtitle: "19 лет. Родился в Москве, Россия. В данный момент живу в Белграде, Сербия.",
-        email: "Моя почта",
-        github: "Мой GitHub",
-        instagram: "Мой Instagram",
-        telegram: "Мой Telegram"
-      },
-      en: {
-        name: "Nil Mistriukov",
-        subtitle: "I am 19 years old. Born in Moscow, Russia. Currently living in Belgrade, Serbia.",
-        email: "My Email",
-        github: "My GitHub",
-        instagram: "My Instagram",
-        telegram: "My Telegram"
-      },
-      sr: {
-        name: "Нил Мистрјуков",
-        subtitle: "19 година. Рођен у Москви, Русија. Тренутно живим у Београду, Србија.",
-        email: "Moj mejl",
-        github: "Moj GitHub",
-        instagram: "Moj Instagram",
-        telegram: "Moj Telegram"
-      }
-    };
-
-    function setLang(lang) {
-      localStorage.setItem('lang', lang);
-      for (const key in texts[lang]) {
-        const el = document.getElementById(key);
-        if(el) el.textContent = texts[lang][key];
-      }
-      document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('btn-' + lang).classList.add('active');
-    }
-
-    setLang(localStorage.getItem('lang') || 'ru');
-
-    // --- Параллакс движения мыши ---
-    const card = document.querySelector('.card');
-    const avatar = document.querySelector('.avatar');
-    const name = document.getElementById('name');
-    const subtitle = document.getElementById('subtitle');
-
-    if(card) {
-      const elems = [avatar, name, subtitle].filter(e => e !== null);
-      document.addEventListener('mousemove', e => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 30;
-        const y = (e.clientY / window.innerHeight - 0.5) * 30;
-        gsap.to(card, { rotationY: x, rotationX: -y, transformPerspective: 500, transformOrigin: "center", duration: 0.5, ease: "power1.out" });
-        gsap.to(elems, { x: x/4, y: -y/4, duration: 0.5, ease: "power1.out" });
-      });
-      document.addEventListener('mouseleave', () => {
-        gsap.to(card, { rotationX:0, rotationY:0, duration:0.5, ease:"power1.out" });
-        gsap.to(elems, { x:0, y:0, duration:0.5, ease:"power1.out" });
-      });
-    }
-  </script>
-
-<script>
-  // --- Тёмная/светлая тема ---
-  const themeToggle = document.createElement('button');
-  themeToggle.textContent = 'Тема';
-  const themeToggle = document.createElement('button');
-  themeToggle.textContent = 'Тема';
-  themeToggle.style.position = 'fixed';
-  themeToggle.style.top = '20px';
-  themeToggle.style.right = '20px';
-  themeToggle.style.padding = '8px 12px';
-  themeToggle.style.border = 'none';
-  themeToggle.style.borderRadius = '8px';
-  themeToggle.style.cursor = 'pointer';
-  themeToggle.style.background = 'rgba(0,255,255,0.15)';
-  themeToggle.style.color = '#fff';
-  themeToggle.style.fontWeight = '600';
-  themeToggle.style.transition = 'all 0.3s ease';
-  document.body.appendChild(themeToggle);
-
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  if (savedTheme === 'light') document.body.classList.add('light');
-
-  themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('light');
-    const theme = document.body.classList.contains('light') ? 'light' : 'dark';
-    localStorage.setItem('theme', theme);
-  });
-</script>
+  <!-- Скрипты (все с defer, чтобы DOM успел отрисоваться) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+  <script src="lang.js" defer></script>
 </body>
 </html>
-
-
-
-
