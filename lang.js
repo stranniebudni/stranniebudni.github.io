@@ -1,129 +1,64 @@
-// Весь JS запускаем после загрузки DOM и подключённых (defer) скриптов
 document.addEventListener('DOMContentLoaded', () => {
-  // Безопасные проверки на наличие библиотек
-  const hasGSAP = typeof window.gsap !== 'undefined';
-  const hasAOS = typeof window.AOS !== 'undefined';
+  const hasGSAP = typeof gsap !== 'undefined';
+  if (typeof AOS !== 'undefined') AOS.init({ duration: 700, once: true }); // только для аватара
 
-  // Инициализация AOS
-  if (hasAOS) AOS.init({ duration: 1000, once: true });
-
-  // Входная анимация карточки (не дублируем с AOS на .card)
-  if (hasGSAP) {
-    gsap.from('.card', { duration: 1, opacity: 0, y: 50, ease: 'power3.out' });
-  }
-
-  // --- Многоязычность ---
+  // i18n
   const texts = {
-    ru: {
-      name: 'Нил Мистрюков',
-      subtitle: '19 лет. Родился в Москве, Россия. В данный момент живу в Белграде, Сербия.',
-      email: 'Моя почта',
-      github: 'Мой GitHub',
-      instagram: 'Мой Instagram',
-      telegram: 'Мой Telegram'
-    },
-    en: {
-      name: 'Nil Mistriukov',
-      subtitle: 'I am 19 years old. Born in Moscow, Russia. Currently living in Belgrade, Serbia.',
-      email: 'My Email',
-      github: 'My GitHub',
-      instagram: 'My Instagram',
-      telegram: 'My Telegram'
-    },
-    sr: {
-      name: 'Нил Мистрјуков',
-      subtitle: '19 година. Рођен у Москви, Русија. Тренутно живим у Београду, Србија.',
-      email: 'Moj mejl',
-      github: 'Moj GitHub',
-      instagram: 'Moj Instagram',
-      telegram: 'Moj Telegram'
-    }
+    ru:{name:'Нил Мистрюков',subtitle:'19 лет. Родился в Москве, Россия. В данный момент живу в Белграде, Сербия.',email:'Моя почта',github:'Мой GitHub',instagram:'Мой Instagram',telegram:'Мой Telegram'},
+    en:{name:'Nil Mistriukov',subtitle:'I am 19 years old. Born in Moscow, Russia. Currently living in Belgrade, Serbia.',email:'My Email',github:'My GitHub',instagram:'My Instagram',telegram:'My Telegram'},
+    sr:{name:'Нил Мистрјуков',subtitle:'19 година. Рођен у Москви, Русија. Тренутно живим у Београду, Србија.',email:'Moj mejl',github:'Moj GitHub',instagram:'Moj Instagram',telegram:'Moj Telegram'}
   };
-
-  // Делаем setLang доступной из HTML (onclick)
-  window.setLang = function setLang(lang) {
+  window.setLang = function setLang(lang){
     localStorage.setItem('lang', lang);
-    if (!texts[lang]) return;
-
-    for (const key in texts[lang]) {
-      const el = document.getElementById(key);
-      if (el) el.textContent = texts[lang][key];
-    }
-
-    // Визуально и семантически обновляем состояние кнопок
-    document.querySelectorAll('.lang-switch button').forEach(btn => {
-      btn.classList.remove('active');
-      btn.setAttribute('aria-pressed', 'false');
+    const pack = texts[lang] || texts.ru;
+    Object.keys(pack).forEach(k=>{
+      const el = document.getElementById(k);
+      if (el) el.textContent = pack[k];
     });
-    const active = document.getElementById('btn-' + lang);
-    if (active) {
-      active.classList.add('active');
-      active.setAttribute('aria-pressed', 'true');
-    }
+    document.querySelectorAll('.lang-switch button').forEach(b=>{
+      const active = b.id === 'btn-'+lang;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', active ? 'true':'false');
+    });
   };
-
-  // Применяем сохранённый язык или по умолчанию RU
   window.setLang(localStorage.getItem('lang') || 'ru');
 
-  // --- Параллакс при движении мыши ---
+  // Входная анимация — один GSAP timeline (без AOS на тексте)
+  if (hasGSAP){
+    const tl = gsap.timeline({ defaults:{ ease:'power3.out' }});
+    tl.from('.card', { opacity:0, y:24, duration:0.6 })
+      .from('#name', { opacity:0, y:14, duration:0.45 }, '-=0.15')
+      .from('#subtitle', { opacity:0, y:12, duration:0.45 }, '-=0.25')
+      .from('.contacts a', { opacity:0, y:10, stagger:0.08, duration:0.35 }, '-=0.10');
+  }
+
+  // Параллакс
   const card = document.querySelector('.card');
   const avatar = document.querySelector('.avatar');
   const nameEl = document.getElementById('name');
   const subtitleEl = document.getElementById('subtitle');
-  const elementsToAnimate = [avatar, nameEl, subtitleEl].filter(Boolean);
+  const elems = [avatar, nameEl, subtitleEl].filter(Boolean);
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (card && hasGSAP) {
-    document.addEventListener('mousemove', e => {
-      // Учитываем prefers-reduced-motion: приоритет — меньше движения
-      const mediaReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const scale = mediaReduced ? 0 : 1;
-
-      const x = (e.clientX / window.innerWidth - 0.5) * 30 * scale;
-      const y = (e.clientY / window.innerHeight - 0.5) * 30 * scale;
-
-      gsap.to(card, {
-        rotationY: x,
-        rotationX: -y,
-        transformPerspective: 500,
-        transformOrigin: 'center',
-        duration: 0.5,
-        ease: 'power1.out'
-      });
-      gsap.to(elementsToAnimate, { x: x / 4, y: -y / 4, duration: 0.5, ease: 'power1.out' });
+  if (card && hasGSAP && !reduced){
+    document.addEventListener('mousemove', e=>{
+      const x = (e.clientX / innerWidth - 0.5) * 30;
+      const y = (e.clientY / innerHeight - 0.5) * 30;
+      gsap.to(card, { rotationY:x, rotationX:-y, transformPerspective:500, transformOrigin:'center', duration:0.4, ease:'power1.out' });
+      gsap.to(elems, { x:x/4, y:-y/4, duration:0.4, ease:'power1.out' });
     });
-
-    window.addEventListener('mouseleave', () => {
-      gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.5, ease: 'power1.out' });
-      gsap.to(elementsToAnimate, { x: 0, y: 0, duration: 0.5, ease: 'power1.out' });
+    window.addEventListener('mouseleave', ()=>{
+      gsap.to(card, { rotationX:0, rotationY:0, duration:0.4 });
+      gsap.to(elems, { x:0, y:0, duration:0.4 });
     });
   }
 
-  // --- Мягкая анимация hover для карточки и ссылок ---
-  if (hasGSAP) {
-    const hoverElems = [card, ...document.querySelectorAll('.contacts a')].filter(Boolean);
-    hoverElems.forEach(el => {
-      el.addEventListener('mouseenter', () => gsap.to(el, { scale: 1.03, duration: 0.4, ease: 'power2.out' }));
-      el.addEventListener('mouseleave', () => gsap.to(el, { scale: 1.0, duration: 0.4, ease: 'power2.out' }));
-    });
-
-    // Плавное появление ссылок контактов
-    document.querySelectorAll('.contacts a').forEach((el, i) => {
-      gsap.from(el, { opacity: 0, y: 10, duration: 0.8, delay: 0.15 * i, ease: 'power2.out' });
-    });
-  }
-
-  // --- Тёмная/светлая тема ---
-  const themeBtn = document.createElement('button');
-  themeBtn.textContent = 'Тема';
-  themeBtn.className = 'theme-toggle';
-  document.body.appendChild(themeBtn);
-
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  if (savedTheme === 'light') document.body.classList.add('light');
-
-  themeBtn.addEventListener('click', () => {
+  // Тема
+  const btn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme') || 'dark';
+  if (saved==='light') document.body.classList.add('light');
+  btn.addEventListener('click', ()=>{
     document.body.classList.toggle('light');
-    const theme = document.body.classList.contains('light') ? 'light' : 'dark';
-    localStorage.setItem('theme', theme);
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light':'dark');
   });
 });

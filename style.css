@@ -1,207 +1,337 @@
-/* ========= CSS VARIABLES ========= */
+/* =========================================================
+   THEME VARIABLES
+   — Централизуем цвета и эффекты для тёмной/светлой темы
+   ========================================================= */
 :root {
   --text: #ffffff;
   --bg1: #0f2027;
   --bg2: #203a43;
   --bg3: #2c5364;
   --bg4: #1c2a3a;
+
   --accent: #00ffff;
   --accent-soft: rgba(0, 255, 255, 0.25);
+
   --glass: rgba(255, 255, 255, 0.08);
-  --glass-hover-a: rgba(0, 255, 255, 0.1);
+  --glass-hover-a: rgba(0, 255, 255, 0.10);
   --glass-hover-b: rgba(255, 255, 255, 0.08);
+
   --ring: rgba(0, 255, 255, 0.55);
+
   --shadow-1: 0 20px 40px rgba(150, 150, 150, 0.25);
-  --shadow-2: 0 20px 50px rgba(0, 255, 255, 0.15), 0 0 30px rgba(0, 255, 255, 0.1);
+  --shadow-2: 0 20px 50px rgba(0, 255, 255, 0.15), 0 0 30px rgba(0, 255, 255, 0.10);
+
   --link: #ffffff;
   --link-hover: #00ffff;
 }
 
+/* Светлая тема переопределяет набор переменных */
 body.light {
   --text: #222222;
   --bg1: #f0f5f9;
   --bg2: #d9e2ec;
   --bg3: #bcccdc;
   --bg4: #d9e2ec;
+
   --accent: #00aaff;
-  --accent-soft: rgba(0, 170, 255, 0.2);
-  --glass: rgba(255, 255, 255, 0.6);
-  --glass-hover-a: rgba(255, 255, 255, 0.7);
-  --glass-hover-b: rgba(255, 255, 255, 0.6);
-  --ring: rgba(0, 170, 255, 0.6);
+  --accent-soft: rgba(0, 170, 255, 0.20);
+
+  --glass: rgba(255, 255, 255, 0.60);
+  --glass-hover-a: rgba(255, 255, 255, 0.70);
+  --glass-hover-b: rgba(255, 255, 255, 0.60);
+
+  --ring: rgba(0, 170, 255, 0.60);
+
   --shadow-1: 0 20px 40px rgba(0, 0, 0, 0.12);
   --shadow-2: 0 25px 60px rgba(0, 0, 0, 0.18);
+
   --link: #222222;
   --link-hover: #00aaff;
 }
 
-/* ========= GLOBAL ========= */
-* { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
-html, body { height: 100%; }
+/* =========================================================
+   GLOBAL RESETS & ACCESSIBILITY
+   ========================================================= */
+* {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease;
+}
+
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  color: var(--text);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   padding: 20px;
   box-sizing: border-box;
+
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
   background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
   background-size: 200% 200%;
+
+  /* Одна каноническая анимация фона */
   animation: gradientShift 20s ease infinite;
 }
 
+/* Уважение к users, которым плохо от анимаций */
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
-  body { animation: none !important; }
+  * {
+    transition: none !important;
+  }
+  body {
+    animation: none !important;
+  }
 }
 
-/* Единственная анимация градиента */
+/* Плавное движение градиента */
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
 }
 
-/* ========= LAYOUT ========= */
-.container { text-align: center; position: relative; z-index: 1; }
+/* Контейнер нужен для позиционирования кнопки темы над карточкой */
+.container {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
 
+/* =========================================================
+   THEME TOGGLE (пилюля, центр над карточкой)
+   ========================================================= */
+.theme-toggle {
+  position: absolute;
+  left: 50%;
+  top: -14px;
+  transform: translateX(-50%);
+
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 999px;
+
+  font-weight: 700;
+  cursor: pointer;
+
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+
+  transition: background-color 0.25s ease,
+              box-shadow 0.25s ease,
+              transform 0.25s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--accent-soft);
+}
+
+body.light .theme-toggle {
+  border-color: rgba(0, 0, 0, 0.20);
+}
+
+/* =========================================================
+   CARD (glassmorphism)
+   ========================================================= */
 .card {
   position: relative;
-  background: var(--glass);
+
+  max-width: 620px;
+  padding: 48px 30px 36px; /* место сверху — под кнопку темы */
   border-radius: 25px;
-  padding: 40px 30px;
-  max-width: 420px;
+
+  background: var(--glass);
   box-shadow: var(--shadow-1);
   backdrop-filter: blur(15px);
+
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  transition: transform .4s ease, box-shadow .4s ease, background .4s ease;
-  animation: fadeIn 1s ease-out forwards;
+
+  transition: transform 0.4s ease,
+              box-shadow 0.4s ease,
+              background 0.4s ease;
 }
+
 .card:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-2);
   background: linear-gradient(135deg, var(--glass-hover-a), var(--glass-hover-b));
 }
 
-/* Спрятать декоративные круги, если нужно: body.no-decor */
-.no-decor .card::before, .no-decor .card::after { display: none !important; }
-
-.card::before, .card::after {
-  content: ''; position: absolute; border-radius: 50%; z-index: 0;
-}
-.card::before {
-  top: -40px; left: -40px; width: 60px; height: 60px;
-  border: 2px solid rgba(0,255,255,0.3);
-  animation: rotateCircle 8s linear infinite;
-}
+/* Круги отключены по умолчанию, чтобы не мешали визуально */
+/* (если когда-то захочешь — можно вернуть эти ::before/::after) */
+.card::before,
 .card::after {
-  bottom: -30px; right: -30px; width: 40px; height: 40px;
-  border: 2px solid rgba(0,255,255,0.2);
-  animation: rotateCircle 12s linear infinite reverse;
+  display: none;
 }
-@keyframes rotateCircle { from { transform: rotate(0) } to { transform: rotate(360deg) } }
 
-/* Аватар */
+/* =========================================================
+   AVATAR
+   ========================================================= */
 .avatar {
-  width: 120px; height: 120px;
+  width: 120px;
+  height: 120px;
+
+  margin-top: 6px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid rgba(255,255,255,0.3);
-  margin-top: 10px;
-  transition: transform .4s ease, box-shadow .4s ease;
-  position: relative; z-index: 2;
-}
-.avatar:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(0,255,255,0.4); }
 
-/* Заголовки */
+  border: 3px solid rgba(255, 255, 255, 0.30);
+
+  position: relative;
+  z-index: 1;
+
+  transition: transform 0.4s ease,
+              box-shadow 0.4s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 22px rgba(0, 255, 255, 0.35);
+}
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
 h1 {
-  font-size: 2.2rem; margin: 10px 0 0;
-  letter-spacing: 1px;
-  transition: transform .3s ease, color .3s ease, text-shadow .3s ease;
-}
-.subtitle {
-  font-size: 1rem; opacity: .85; margin-bottom: 20px; line-height: 1.4;
-  transition: transform .3s ease, opacity .3s ease, text-shadow .3s ease;
+  margin: 14px 0 0;
+  font-size: 2.4rem;
+  letter-spacing: 0.4px;
 }
 
-/* Переключатель языка */
-.lang-switch { display: flex; gap: 10px; margin-bottom: 10px; }
+.subtitle {
+  margin-bottom: 18px;
+  font-size: 1rem;
+  line-height: 1.45;
+  opacity: 0.9;
+}
+
+/* =========================================================
+   LANGUAGE SWITCHER
+   ========================================================= */
+.lang-switch {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
 .lang-switch button {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: var(--text);
-  border-radius: 12px;
   padding: 6px 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text);
+
   font-weight: 600;
   cursor: pointer;
-  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
+
+  transition: background-color 0.2s ease,
+              box-shadow 0.2s ease,
+              transform 0.2s ease,
+              border-color 0.2s ease;
 }
+
 .lang-switch button:hover {
   background: var(--accent-soft);
-  box-shadow: 0 0 10px rgba(0,255,255,0.25);
-  transform: translateY(-2px);
 }
+
 .lang-switch button.active {
   background: var(--accent-soft);
   border-color: var(--ring);
-  box-shadow: 0 0 15px rgba(0,255,255,0.3);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.25);
 }
 
-/* Контакты */
+/* =========================================================
+   CONTACTS
+   ========================================================= */
 .contacts {
-  display: flex; flex-wrap: wrap; justify-content: center;
-  gap: 12px 18px; margin-top: 15px; position: relative; z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: 12px 18px;
+  margin-top: 12px;
 }
-.contacts a {
-  text-decoration: none; color: var(--link);
-  font-weight: 600; position: relative; transition: transform .2s ease, color .2s ease, text-shadow .2s ease;
+
+/* Жёстко фиксируем цвета ссылок, чтобы :visited не «тускнил» */
+.contacts a:link,
+.contacts a:visited {
+  color: var(--link);
+  text-decoration: none;
+  font-weight: 700;
+
+  position: relative;
+  opacity: 1; /* защита от сторонних стилей */
+  transition: color 0.2s ease,
+              text-shadow 0.2s ease,
+              transform 0.2s ease;
 }
+
+.contacts a:hover {
+  color: var(--link-hover);
+  text-shadow: 0 0 10px var(--accent);
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Подчёркивание по hover — «выезжающая» полоска */
 .contacts a::after {
-  content: ''; position: absolute; left: 0; bottom: -3px;
-  width: 0%; height: 2px; background: var(--accent);
-  transition: width .3s ease;
-}
-.contacts a:hover { color: var(--link-hover); text-shadow: 0 0 10px var(--accent); transform: translateY(-3px) scale(1.05); }
-.contacts a:hover::after { width: 100%; }
+  content: '';
+  position: absolute;
 
-/* Кнопка темы */
-.theme-toggle {
-  position: fixed; top: 20px; right: 20px;
-  padding: 8px 12px; border: 1px solid transparent;
-  border-radius: 10px; cursor: pointer; font-weight: 700;
-  background: rgba(0,0,0,0.25); color: #fff; backdrop-filter: blur(6px);
-  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
-  z-index: 5;
-}
-body.light .theme-toggle {
-  background: rgba(255,255,255,0.65);
-  color: #111; border-color: rgba(0,0,0,0.1);
-}
-.theme-toggle:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-.theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); }
+  left: 0;
+  bottom: -3px;
 
-/* Доступность: фокус */
-a:focus-visible, button:focus-visible {
-  outline: none; box-shadow: 0 0 0 3px var(--ring); border-radius: 10px;
+  width: 0%;
+  height: 2px;
+
+  background: var(--accent);
+  transition: width 0.3s ease;
 }
 
-/* Появление */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+.contacts a:hover::after {
+  width: 100%;
 }
 
-/* Адаптив */
+/* =========================================================
+   FOCUS STYLES (доступность с клавиатуры)
+   ========================================================= */
+a:focus-visible,
+button:focus-visible {
+  outline: none;
+  border-radius: 10px;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 @media (max-width: 480px) {
-  .card { padding: 30px 20px; max-width: 90%; }
-  .avatar { width: 100px; height: 100px; }
-  .lang-switch { gap: 8px; }
-  h1 { font-size: 1.8rem; }
-  .subtitle { font-size: .95rem; }
+  .card {
+    max-width: 92%;
+    padding: 52px 20px 28px; /* чуть больше воздух сверху */
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
 }
