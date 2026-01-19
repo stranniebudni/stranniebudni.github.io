@@ -2,212 +2,202 @@
   "use strict";
 
   // Birthdate: 02.06.2006 (dd.mm.yyyy)
-  const BIRTHDATE = new Date(2006, 6, 2);
+  const BIRTHDATE = new Date(2006, 5, 2);
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  const i18n = {
-    ru: {
-      brand: "Нил Мистрюков",
-      "nav.about": "Обо мне",
-      "nav.highlights": "Фокус",
-      "nav.links": "Ссылки",
+const i18n = {
+  ru: {
+    brand: "Нил Мистрюков",
+    "nav.about": "Обо мне",
+    "nav.highlights": "Фокус",
+    "nav.links": "Ссылки",
 
-      "ui.languageLabel": "Язык",
-      "ui.themeLight": "Светлая",
-      "ui.themeDark": "Тёмная",
-      "ui.themeToggle": "Тема: {mode}",
+    "ui.languageLabel": "Язык",
+    "ui.themeLight": "Светлая",
+    "ui.themeDark": "Тёмная",
+    "ui.themeToggle": "Тема: {mode}",
 
-      "hero.name": "Нил Мистрюков",
-      "hero.subtitle": "Data Science",
-      "hero.desc": "Нил Мистрюков, {age} лет. Студент Католического университета Айхштетт-Ингольштадт, направление Data Science. Живу в Германии.",
-      "hero.ctaPrimary": "Открыть ссылки",
-      "hero.ctaSecondary": "Скопировать ссылку на страницу",
+    "hero.name": "Нил Мистрюков",
+    "hero.subtitle": "Data Science",
+    "hero.desc":
+      "Нил Мистрюков, {age} лет. Студент Католического университета Айхштетт-Ингольштадт, направление Data Science. Живу в Германии.",
+    "hero.ctaPrimary": "Открыть ссылки",
+    "hero.ctaSecondary": "Скопировать ссылку на страницу",
 
-      "about.title": "Обо мне",
-      "about.text": "",
-      "about.cards.c1.title": "Учёба",
-      "about.cards.c1.text": "Die Katholische Universität Eichstätt-Ingolstadt, бакалавриат, Data Science.",
-      "about.cards.c2.title": "Подход",
-      "about.cards.c2.text": "Люблю структурировать задачи, автоматизировать рутину и аккуратно оформлять результат.",
-      "about.cards.c3.title": "Интересы",
-      "about.cards.c3.text": "Спорт: Горные лыжи, скалолазанье, футбол, волейбол, водные лыжи. Математика, ML, Анализ данных, программирование.",
+    "about.title": "Обо мне",
+    "about.text": "Коротко - чем занимаюсь, как подхожу к задачам и что мне интересно.",
+    "about.cards.c1.title": "Учёба",
+    "about.cards.c1.text": "Katholische Universität Eichstätt-Ingolstadt (KU), бакалавриат, Data Science.",
+    "about.cards.c2.title": "Подход",
+    "about.cards.c2.text": "Люблю структурировать задачи, автоматизировать рутину и аккуратно оформлять результат.",
+    "about.cards.c3.title": "Интересы",
+    "about.cards.c3.text":
+      "Спорт: горные лыжи, скалолазание, футбол, волейбол, водные лыжи. Математика, ML, анализ данных, программирование.",
 
-      "high.title": "Дополнительная информация",
-      "high.text": "",
-      "high.a1.title": "Школа",
-      "high.a1.text": "Закончил Белградскую девятую гимназию 'Михаjло Петровиħ Алас', природно-математическое направление.",
-      "high.a2.title": "Личные проекты",
-      "high.a2.text": "На данный момент активен один проект: Бот в месседжере Telegram, анализирующий с помощью исскуственного интеллекта коментарии под видео, и выводящий статистику. Можно найти по юзернейму @yt_analyser_bot",
-      "high.a3.title": "Планы",
-      "high.a3.text": "Планирую закончить бакалавариат и поступить в магистратуру.",
+    "high.title": "Фокус",
+    "high.text": "Пара фактов и проектов - без перегруза.",
+    "high.a1.title": "Школа",
+    "high.a1.text":
+      "Закончил Белградскую девятую гимназию «Михајло Петровић Алас», природно-математическое направление.",
+    "high.a2.title": "Личные проекты",
+    "high.a2.text":
+      "Сейчас активен один проект: Telegram-бот, который анализирует с помощью искусственного интеллекта комментарии под видео на YouTube и выводит статистику. Юзернейм: @yt_analyser_bot.",
+    "high.a3.title": "Планы",
+    "high.a3.text": "Планирую закончить бакалавриат и поступить в магистратуру.",
 
-      "links.title": "Ссылки",
-      "links.text": "",
-      "links.open": "Открыть",
-      "links.note": "Пишите, буду рад ответить.",
+    "links.title": "Ссылки",
+    "links.text": "Профили и контакты - ниже.",
+    "links.open": "Открыть",
+    "links.note": "Пиши - отвечу.",
 
-      "footer.left": "Сайт-визитка",
-    },
+    "footer.left": "Сайт-визитка",
+  },
 
-    en: {
-      brand: "Nil Mistryukov",
-      "nav.about": "About",
-      "nav.highlights": "Focus",
-      "nav.links": "Links",
+  en: {
+    brand: "Nil Mistryukov",
+    "nav.about": "About",
+    "nav.highlights": "Focus",
+    "nav.links": "Links",
 
-      "ui.languageLabel": "Language",
-      "ui.themeLight": "Light",
-      "ui.themeDark": "Dark",
-      "ui.themeToggle": "Theme: {mode}",
+    "ui.languageLabel": "Language",
+    "ui.themeLight": "Light",
+    "ui.themeDark": "Dark",
+    "ui.themeToggle": "Theme: {mode}",
 
-      "hero.name": "Nil Mistryukov",
-      "hero.subtitle": "Data Science",
-      "hero.desc": "Nil Mistryukov, {age}. Data Science student at the Catholic University of Eichstätt-Ingolstadt. Based in Germany.",
-      "hero.ctaPrimary": "Open links",
-      "hero.ctaSecondary": "Copy page link",
+    "hero.name": "Nil Mistryukov",
+    "hero.subtitle": "Data Science",
+    "hero.desc":
+      "Nil Mistryukov, {age} years old. Data Science student at the Catholic University of Eichstätt-Ingolstadt. Based in Germany.",
+    "hero.ctaPrimary": "Open links",
+    "hero.ctaSecondary": "Copy page link",
 
-      "about.title": "About",
-      "about.text": "A minimal personal page with deliberate interactivity: language, theme, quick cards, and clean navigation.",
-      "about.cards.c1.title": "Studies",
-      "about.cards.c1.text": "Catholic University of Eichstätt-Ingolstadt, BSc, Data Science.",
-      "about.cards.c2.title": "Approach",
-      "about.cards.c2.text": "I like structured problem-solving, automation, and polished deliverables.",
-      "about.cards.c3.title": "Interests",
-      "about.cards.c3.text": "Data analysis, visualization, ML, and the engineering side of projects.",
+    "about.title": "About",
+    "about.text": "In short - what I do, how I work, and what I’m interested in.",
+    "about.cards.c1.title": "Studies",
+    "about.cards.c1.text": "Catholic University of Eichstätt-Ingolstadt (KU), BSc, Data Science.",
+    "about.cards.c2.title": "Approach",
+    "about.cards.c2.text": "I like structured problem-solving, automation, and polished deliverables.",
+    "about.cards.c3.title": "Interests",
+    "about.cards.c3.text":
+      "Sports: alpine skiing, climbing, football, volleyball, water skiing. Math, ML, data analysis, programming.",
 
-      "high.title": "Focus",
-      "high.text": "A few interactive blocks instead of an overloaded resume.",
-      "high.a1.title": "Data Science in practice",
-      "high.a1.text": "I focus on clear metrics, testable hypotheses, and reproducibility (data - code - results).",
-      "high.a2.title": "Interactivity without noise",
-      "high.a2.text": "Subtle details: section highlighting, scroll reveal, language and theme toggles.",
-      "high.a3.title": "Minimalism",
-      "high.a3.text": "Grayscale palette, system fonts, a clean grid, and accessibility (focus-visible, reduced motion).",
+    "high.title": "Focus",
+    "high.text": "A few facts and projects - without overload.",
+    "high.a1.title": "School",
+    "high.a1.text":
+      "Graduated from the Ninth Belgrade Gymnasium “Mihajlo Petrović Alas”, science and mathematics track.",
+    "high.a2.title": "Personal projects",
+    "high.a2.text":
+      "Currently, one project is active: a Telegram bot that uses AI to analyze comments under YouTube videos and outputs stats. Username: @yt_analyser_bot.",
+    "high.a3.title": "Plans",
+    "high.a3.text": "I plan to finish my bachelor’s degree and apply for a master’s program.",
 
-      "links.title": "Links",
-      "links.text": "Social profiles are below. Replace USERNAME with your real handles.",
-      "links.open": "Open",
-      "links.note": "Tip: add one more item like a portfolio page or a CV PDF (in assets) if you want.",
+    "links.title": "Links",
+    "links.text": "Profiles and contacts are below.",
+    "links.open": "Open",
+    "links.note": "Message me - I’ll reply.",
 
-      "footer.left": "Personal site",
-    },
+    "footer.left": "Personal site",
+  },
 
-    de: {
-      brand: "Nil Mistryukov",
-      "nav.about": "Über mich",
-      "nav.highlights": "Fokus",
-      "nav.links": "Links",
+  de: {
+    brand: "Nil Mistryukov",
+    "nav.about": "Über mich",
+    "nav.highlights": "Fokus",
+    "nav.links": "Links",
 
-      "ui.languageLabel": "Sprache",
-      "ui.themeLight": "Hell",
-      "ui.themeDark": "Dunkel",
-      "ui.themeToggle": "Thema: {mode}",
+    "ui.languageLabel": "Sprache",
+    "ui.themeLight": "Hell",
+    "ui.themeDark": "Dunkel",
+    "ui.themeToggle": "Thema: {mode}",
 
-      "hero.name": "Nil Mistryukov",
-      "hero.subtitle": "Data Science",
-      "hero.desc": "Nil Mistryukov, {age} Jahre alt. Data-Science-Student an der Katholischen Universität Eichstätt-Ingolstadt. Ich lebe in Deutschland.",
-      "hero.ctaPrimary": "Links öffnen",
-      "hero.ctaSecondary": "Seitenlink kopieren",
+    "hero.name": "Nil Mistryukov",
+    "hero.subtitle": "Data Science",
+    "hero.desc":
+      "Nil Mistryukov, {age} Jahre alt. Data-Science-Student an der Katholischen Universität Eichstätt-Ingolstadt. Ich lebe in Deutschland.",
+    "hero.ctaPrimary": "Links öffnen",
+    "hero.ctaSecondary": "Seitenlink kopieren",
 
-      "about.title": "Über mich",
-      "about.text": "Eine minimalistische Visitenkarte mit gezielter Interaktivität: Sprache, Thema, Kurzinfos und klare Navigation.",
-      "about.cards.c1.title": "Studium",
-      "about.cards.c1.text": "Katholische Universität Eichstätt-Ingolstadt, Bachelor, Data Science.",
-      "about.cards.c2.title": "Arbeitsweise",
-      "about.cards.c2.text": "Ich mag strukturierte Problemlösung, Automatisierung und saubere Ergebnisse.",
-      "about.cards.c3.title": "Interessen",
-      "about.cards.c3.text": "Datenanalyse, Visualisierung, ML und Engineering in Projekten.",
+    "about.title": "Über mich",
+    "about.text": "Kurz - was ich mache, wie ich arbeite und wofür ich mich interessiere.",
+    "about.cards.c1.title": "Studium",
+    "about.cards.c1.text": "Katholische Universität Eichstätt-Ingolstadt (KU), Bachelor, Data Science.",
+    "about.cards.c2.title": "Arbeitsweise",
+    "about.cards.c2.text": "Ich mag strukturierte Problemlösung, Automatisierung und saubere Ergebnisse.",
+    "about.cards.c3.title": "Interessen",
+    "about.cards.c3.text":
+      "Sport: Alpinski, Klettern, Fußball, Volleyball, Wasserski. Mathematik, ML, Datenanalyse, Programmierung.",
 
-      "high.title": "Fokus",
-      "high.text": "Ein paar interaktive Blöcke statt eines überladenen Lebenslaufs.",
-      "high.a1.title": "Data Science in der Praxis",
-      "high.a1.text": "Fokus auf klare Metriken, testbare Hypothesen und Reproduzierbarkeit (Daten - Code - Ergebnis).",
-      "high.a2.title": "Interaktiv ohne Lärm",
-      "high.a2.text": "Dezente Details: Abschnitt-Markierung, Scroll-Reveal, Sprach- und Theme-Schalter.",
-      "high.a3.title": "Minimalismus",
-      "high.a3.text": "Graustufen, Systemschriften, ein sauberes Grid und Barrierefreiheit (focus-visible, reduced motion).",
+    "high.title": "Fokus",
+    "high.text": "Ein paar Fakten und Projekte - ohne Überladung.",
+    "high.a1.title": "Schule",
+    "high.a1.text":
+      "Absolvent des Neunten Belgrader Gymnasiums „Mihajlo Petrović Alas“, naturwissenschaftlich-mathematischer Zweig.",
+    "high.a2.title": "Eigene Projekte",
+    "high.a2.text":
+      "Aktuell ist ein Projekt aktiv: ein Telegram-Bot, der mit KI Kommentare unter YouTube-Videos analysiert und Statistiken ausgibt. Username: @yt_analyser_bot.",
+    "high.a3.title": "Pläne",
+    "high.a3.text": "Ich plane, den Bachelor abzuschließen und mich für ein Masterstudium zu bewerben.",
 
-      "links.title": "Links",
-      "links.text": "Unten sind Social-Links. Ersetze USERNAME durch deine echten Profile.",
-      "links.open": "Öffnen",
-      "links.note": "Tipp: Du kannst noch einen Punkt ergänzen, z.B. Portfolio oder CV PDF (in assets).",
+    "links.title": "Links",
+    "links.text": "Profile und Kontakte stehen unten.",
+    "links.open": "Öffnen",
+    "links.note": "Schreib mir - ich antworte.",
 
-      "footer.left": "Visitenkarte",
-    },
+    "footer.left": "Visitenkarte",
+  },
 
-    // Serbian (Cyrillic)
-    sr: {
-      brand: "Нил Мистрјуков",
-      "nav.about": "О мени",
-      "nav.highlights": "Фокус",
-      "nav.links": "Линкови",
+  // Serbian (Cyrillic)
+  sr: {
+    brand: "Нил Мистрјуков",
+    "nav.about": "О мени",
+    "nav.highlights": "Фокус",
+    "nav.links": "Линкови",
 
-      "ui.languageLabel": "Језик",
-      "ui.themeLight": "Светла",
-      "ui.themeDark": "Тамна",
-      "ui.themeToggle": "Тема: {mode}",
+    "ui.languageLabel": "Језик",
+    "ui.themeLight": "Светла",
+    "ui.themeDark": "Тамна",
+    "ui.themeToggle": "Тема: {mode}",
 
-      "hero.name": "Нил Мистрјуков",
-      "hero.subtitle": "Data Science",
-      "hero.desc": "Нил Мистрјуков, стар {age} година. Студент Католичког универзитета Ајхштет-Инголштат, смер Data Science. Живим у Немачкој.",
-      "hero.ctaPrimary": "Отвори линкове",
-      "hero.ctaSecondary": "Копирај линк странице",
+    "hero.name": "Нил Мистрјуков",
+    "hero.subtitle": "Data Science",
+    "hero.desc":
+      "Нил Мистрјуков, стар {age} година. Студент Католичког универзитета Ајхштет-Инголштат, смер Data Science. Живим у Немачкој.",
+    "hero.ctaPrimary": "Отвори линкове",
+    "hero.ctaSecondary": "Копирај линк странице",
 
-      "about.title": "О мени",
-      "about.text": "Минималистичка визитка са контролисаном интерактивношћу: језик, тема, кратке картице и чиста навигација.",
-      "about.cards.c1.title": "Студије",
-      "about.cards.c1.text": "Католички универзитет Ајхштет-Инголштат, основне студије, Data Science.",
-      "about.cards.c2.title": "Приступ",
-      "about.cards.c2.text": "Волим структуру, аутоматизацију рутине и уредан резултат.",
-      "about.cards.c3.title": "Интересовања",
-      "about.cards.c3.text": "Анализа података, визуализација, ML и инжењерски део пројеката.",
+    "about.title": "О мени",
+    "about.text": "Укратко - чиме се бавим, како радим и шта ме занима.",
+    "about.cards.c1.title": "Студије",
+    "about.cards.c1.text": "Католички универзитет Ајхштет-Инголштат (KU), основне студије, Data Science.",
+    "about.cards.c2.title": "Приступ",
+    "about.cards.c2.text": "Волим структуру, аутоматизацију рутине и уредан резултат.",
+    "about.cards.c3.title": "Интересовања",
+    "about.cards.c3.text":
+      "Спорт: алпско скијање, пењање, фудбал, одбојка, водне скије. Математика, ML, анализа података, програмирање.",
 
-      "high.title": "Фокус",
-      "high.text": "Неколико интерактивних блокова уместо преоптерећеног CV-а.",
-      "high.a1.title": "Data Science у пракси",
-      "high.a1.text": "Фокус на јасне метрике, проверљиве хипотезе и репродуктивност (подаци - код - резултат).",
-      "high.a2.title": "Интерактивно без шума",
-      "high.a2.text": "Суптилни детаљи: истицање секција, reveal при скролу, избор језика и теме.",
-      "high.a3.title": "Минимализам",
-      "high.a3.text": "Сиве нијансе, системски фонтови, чиста мрежа и приступачност (focus-visible, reduced motion).",
+    "high.title": "Фокус",
+    "high.text": "Неколико чињеница и пројеката - без преоптерећења.",
+    "high.a1.title": "Школа",
+    "high.a1.text":
+      "Завршио Девету београдску гимназију „Михајло Петровић Алас“, природно-математички смер.",
+    "high.a2.title": "Лични пројекти",
+    "high.a2.text":
+      "Тренутно је активан један пројекат: Telegram-бот који уз помоћ вештачке интелигенције анализира коментаре испод YouTube видеа и приказује статистику. Јузернејм: @yt_analyser_bot.",
+    "high.a3.title": "Планови",
+    "high.a3.text": "Планирам да завршим основне студије и упишем мастер.",
 
-      "links.title": "Линкови",
-      "links.text": "Испод су друштвене мреже. Замени USERNAME својим правим профилима.",
-      "links.open": "Отвори",
-      "links.note": "Савет: додај још једну ставку - портфолио или CV PDF (у assets), ако желиш.",
+    "links.title": "Линкови",
+    "links.text": "Профили и контакти су испод.",
+    "links.open": "Отвори",
+    "links.note": "Пиши - одговорићу.",
 
-      "footer.left": "Визитка",
-    },
-  };
+    "footer.left": "Визитка",
+  },
+};
 
-  const chipContent = {
-    ds: {
-      ru: { t: "Data Science", d: "Аналитика, постановка гипотез, метрики, проверка качества." },
-      en: { t: "Data Science", d: "Analytics, hypotheses, metrics, and evaluation discipline." },
-      de: { t: "Data Science", d: "Analyse, Hypothesen, Metriken und saubere Evaluation." },
-      sr: { t: "Data Science", d: "Аналитика, хипотезе, метрике и провера квалитета." },
-    },
-    python: {
-      ru: { t: "Python", d: "Быстрая разработка, автоматизация, данные, пайплайны." },
-      en: { t: "Python", d: "Rapid development, automation, data work, pipelines." },
-      de: { t: "Python", d: "Schnelle Entwicklung, Automatisierung, Daten, Pipelines." },
-      sr: { t: "Python", d: "Брз развој, аутоматизација, подаци, пайплајни." },
-    },
-    ml: {
-      ru: { t: "Machine Learning", d: "Базовые модели, валидация, переобучение, практическая применимость." },
-      en: { t: "Machine Learning", d: "Core models, validation, overfitting control, practical use." },
-      de: { t: "Machine Learning", d: "Modelle, Validierung, Overfitting-Kontrolle, Praxisbezug." },
-      sr: { t: "Machine Learning", d: "Модели, валидација, overfitting, практична примена." },
-    },
-    viz: {
-      ru: { t: "Visualization", d: "Графики, читаемость, смысловые акценты и аккуратная подача." },
-      en: { t: "Visualization", d: "Charts, readability, meaningful emphasis, clean presentation." },
-      de: { t: "Visualization", d: "Charts, Lesbarkeit, klare Aussagen, saubere Darstellung." },
-      sr: { t: "Visualization", d: "Графици, читљивост, јасан смисао и чиста презентација." },
-    },
-  };
 
   function calcAge(birthDate, now = new Date()) {
     let age = now.getFullYear() - birthDate.getFullYear();
