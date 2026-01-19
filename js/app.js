@@ -11,7 +11,7 @@
   ru: {
     brand: "Нил Мистрюков",
     "nav.about": "Обо мне",
-    "nav.highlights": "Фокус",
+    "nav.highlights": "Дополнительная информация",
     "nav.links": "Ссылки",
 
     "ui.languageLabel": "Язык",
@@ -56,9 +56,9 @@
   },
 
   en: {
-    brand: "Nil Mistryukov",
+    brand: "Nil Mistriukov",
     "nav.about": "About",
-    "nav.highlights": "Focus",
+    "nav.highlights": "More information",
     "nav.links": "Links",
 
     "ui.languageLabel": "Language",
@@ -66,10 +66,10 @@
     "ui.themeDark": "Dark",
     "ui.themeToggle": "Theme: {mode}",
 
-    "hero.name": "Nil Mistryukov",
+    "hero.name": "Nil Mistriukov",
     "hero.subtitle": "Data Science",
     "hero.desc":
-      "Nil Mistryukov, {age} years old. Student at the Catholic University of Eichstätt-Ingolstadt, Data Science program. I live in Germany.",
+      "Nil Mistriukov, {age} years old. Student at the Catholic University of Eichstätt-Ingolstadt, Data Science program. I live in Germany.",
     "hero.ctaPrimary": "Open links",
     "hero.ctaSecondary": "Copy page link",
 
@@ -103,9 +103,9 @@
   },
 
   de: {
-    brand: "Nil Mistryukov",
+    brand: "Nil Mistriukov",
     "nav.about": "Über mich",
-    "nav.highlights": "Fokus",
+    "nav.highlights": "Zusätzliche Informationen",
     "nav.links": "Links",
 
     "ui.languageLabel": "Sprache",
@@ -113,10 +113,10 @@
     "ui.themeDark": "Dunkel",
     "ui.themeToggle": "Thema: {mode}",
 
-    "hero.name": "Nil Mistryukov",
+    "hero.name": "Nil Mistriukov",
     "hero.subtitle": "Data Science",
     "hero.desc":
-      "Nil Mistryukov, {age} Jahre alt. Student an der Katholischen Universität Eichstätt-Ingolstadt, Studiengang Data Science. Ich lebe in Deutschland.",
+      "Nil Mistriukov, {age} Jahre alt. Student an der Katholischen Universität Eichstätt-Ingolstadt, Studiengang Data Science. Ich lebe in Deutschland.",
     "hero.ctaPrimary": "Links öffnen",
     "hero.ctaSecondary": "Seitenlink kopieren",
 
@@ -153,7 +153,7 @@
   sr: {
     brand: "Нил Мистрјуков",
     "nav.about": "О мени",
-    "nav.highlights": "Фокус",
+    "nav.highlights": "Додатне информације",
     "nav.links": "Линкови",
 
     "ui.languageLabel": "Језик",
