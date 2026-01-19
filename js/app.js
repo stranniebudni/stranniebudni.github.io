@@ -7,7 +7,7 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-const i18n = {
+  const i18n = {
   ru: {
     brand: "Нил Мистрюков",
     "nav.about": "Обо мне",
@@ -27,7 +27,7 @@ const i18n = {
     "hero.ctaSecondary": "Скопировать ссылку на страницу",
 
     "about.title": "Обо мне",
-    "about.text": "...desc": "",
+    "about.text": "",
     "about.cards.c1.title": "Учёба",
     "about.cards.c1.text": "Katholische Universität Eichstätt-Ingolstadt (KU), бакалавриат, Data Science.",
     "about.cards.c2.title": "Работа",
@@ -37,7 +37,7 @@ const i18n = {
       "Спорт: горные лыжи, скалолазание, футбол, волейбол, водные лыжи. Математика, ML, анализ данных, программирование.",
 
     "high.title": "Дополнительная информация",
-    "high.text": "...desc": "",
+    "high.text": "",
     "high.a1.title": "Школа",
     "high.a1.text":
       "Закончил Белградскую девятую гимназию «Михајло Петровић Алас», природно-математическое направление.",
@@ -50,7 +50,7 @@ const i18n = {
     "links.title": "Ссылки",
     "links.text": "Профили и контакты.",
     "links.open": "Открыть",
-    "links.note": "Пишите, буду рад ответить.",
+    "links.note": "Пишите - буду рад ответить.",
 
     "footer.left": "Сайт-визитка",
   },
@@ -69,37 +69,37 @@ const i18n = {
     "hero.name": "Nil Mistryukov",
     "hero.subtitle": "Data Science",
     "hero.desc":
-      "Nil Mistryukov, {age} years old. Data Science student at the Catholic University of Eichstätt-Ingolstadt. Based in Germany.",
+      "Nil Mistryukov, {age} years old. Student at the Catholic University of Eichstätt-Ingolstadt, Data Science program. I live in Germany.",
     "hero.ctaPrimary": "Open links",
     "hero.ctaSecondary": "Copy page link",
 
     "about.title": "About",
-    "about.text": "In short - what I do, how I work, and what I’m interested in.",
+    "about.text": "",
     "about.cards.c1.title": "Studies",
-    "about.cards.c1.text": "Catholic University of Eichstätt-Ingolstadt (KU), BSc, Data Science.",
-    "about.cards.c2.title": "Approach",
-    "about.cards.c2.text": "I like structured problem-solving, automation, and polished deliverables.",
+    "about.cards.c1.text": "Katholische Universität Eichstätt-Ingolstadt (KU), bachelor’s degree, Data Science.",
+    "about.cards.c2.title": "Work",
+    "about.cards.c2.text": "Not yet.",
     "about.cards.c3.title": "Interests",
     "about.cards.c3.text":
       "Sports: alpine skiing, climbing, football, volleyball, water skiing. Math, ML, data analysis, programming.",
 
-    "high.title": "Focus",
-    "high.text": "A few facts and projects - without overload.",
+    "high.title": "Additional information",
+    "high.text": "",
     "high.a1.title": "School",
     "high.a1.text":
       "Graduated from the Ninth Belgrade Gymnasium “Mihajlo Petrović Alas”, science and mathematics track.",
     "high.a2.title": "Personal projects",
     "high.a2.text":
-      "Currently, one project is active: a Telegram bot that uses AI to analyze comments under YouTube videos and outputs stats. Username: @yt_analyser_bot.",
+      "Currently, one project is active: a Telegram bot that uses artificial intelligence to analyze comments under YouTube videos and outputs statistics. Username: @yt_analyser_bot.",
     "high.a3.title": "Plans",
     "high.a3.text": "I plan to finish my bachelor’s degree and apply for a master’s program.",
 
     "links.title": "Links",
-    "links.text": "Profiles and contacts are below.",
+    "links.text": "Profiles and contacts.",
     "links.open": "Open",
-    "links.note": "Message me - I’ll reply.",
+    "links.note": "Message me - I’ll be glad to reply.",
 
-    "footer.left": "Personal site",
+    "footer.left": "Personal landing page",
   },
 
   de: {
@@ -116,37 +116,37 @@ const i18n = {
     "hero.name": "Nil Mistryukov",
     "hero.subtitle": "Data Science",
     "hero.desc":
-      "Nil Mistryukov, {age} Jahre alt. Data-Science-Student an der Katholischen Universität Eichstätt-Ingolstadt. Ich lebe in Deutschland.",
+      "Nil Mistryukov, {age} Jahre alt. Student an der Katholischen Universität Eichstätt-Ingolstadt, Studiengang Data Science. Ich lebe in Deutschland.",
     "hero.ctaPrimary": "Links öffnen",
     "hero.ctaSecondary": "Seitenlink kopieren",
 
     "about.title": "Über mich",
-    "about.text": "Kurz - was ich mache, wie ich arbeite und wofür ich mich interessiere.",
+    "about.text": "",
     "about.cards.c1.title": "Studium",
     "about.cards.c1.text": "Katholische Universität Eichstätt-Ingolstadt (KU), Bachelor, Data Science.",
-    "about.cards.c2.title": "Arbeitsweise",
-    "about.cards.c2.text": "Ich mag strukturierte Problemlösung, Automatisierung und saubere Ergebnisse.",
+    "about.cards.c2.title": "Arbeit",
+    "about.cards.c2.text": "Noch nicht.",
     "about.cards.c3.title": "Interessen",
     "about.cards.c3.text":
       "Sport: Alpinski, Klettern, Fußball, Volleyball, Wasserski. Mathematik, ML, Datenanalyse, Programmierung.",
 
-    "high.title": "Fokus",
-    "high.text": "Ein paar Fakten und Projekte - ohne Überladung.",
+    "high.title": "Zusätzliche Informationen",
+    "high.text": "",
     "high.a1.title": "Schule",
     "high.a1.text":
       "Absolvent des Neunten Belgrader Gymnasiums „Mihajlo Petrović Alas“, naturwissenschaftlich-mathematischer Zweig.",
     "high.a2.title": "Eigene Projekte",
     "high.a2.text":
-      "Aktuell ist ein Projekt aktiv: ein Telegram-Bot, der mit KI Kommentare unter YouTube-Videos analysiert und Statistiken ausgibt. Username: @yt_analyser_bot.",
+      "Aktuell ist ein Projekt aktiv: ein Telegram-Bot, der mithilfe künstlicher Intelligenz Kommentare unter YouTube-Videos analysiert und Statistiken ausgibt. Username: @yt_analyser_bot.",
     "high.a3.title": "Pläne",
     "high.a3.text": "Ich plane, den Bachelor abzuschließen und mich für ein Masterstudium zu bewerben.",
 
     "links.title": "Links",
-    "links.text": "Profile und Kontakte stehen unten.",
+    "links.text": "Profile und Kontakte.",
     "links.open": "Öffnen",
-    "links.note": "Schreib mir - ich antworte.",
+    "links.note": "Schreib mir - ich antworte gern.",
 
-    "footer.left": "Visitenkarte",
+    "footer.left": "Visitenkarten-Website",
   },
 
   // Serbian (Cyrillic)
@@ -164,39 +164,40 @@ const i18n = {
     "hero.name": "Нил Мистрјуков",
     "hero.subtitle": "Data Science",
     "hero.desc":
-      "Нил Мистрјуков, стар {age} година. Студент Католичког универзитета Ајхштет-Инголштат, смер Data Science. Живим у Немачкој.",
+      "Нил Мистрјуков, {age} година. Студент Католичког универзитета Ајхштет-Инголштат, смер Data Science. Живим у Немачкој.",
     "hero.ctaPrimary": "Отвори линкове",
     "hero.ctaSecondary": "Копирај линк странице",
 
     "about.title": "О мени",
-    "about.text": "Укратко - чиме се бавим, како радим и шта ме занима.",
+    "about.text": "",
     "about.cards.c1.title": "Студије",
-    "about.cards.c1.text": "Католички универзитет Ајхштет-Инголштат (KU), основне студије, Data Science.",
-    "about.cards.c2.title": "Приступ",
-    "about.cards.c2.text": "Волим структуру, аутоматизацију рутине и уредан резултат.",
+    "about.cards.c1.text": "Katholische Universität Eichstätt-Ingolstadt (KU), основне студије, Data Science.",
+    "about.cards.c2.title": "Посао",
+    "about.cards.c2.text": "Још не.",
     "about.cards.c3.title": "Интересовања",
     "about.cards.c3.text":
       "Спорт: алпско скијање, пењање, фудбал, одбојка, водне скије. Математика, ML, анализа података, програмирање.",
 
-    "high.title": "Фокус",
-    "high.text": "Неколико чињеница и пројеката - без преоптерећења.",
+    "high.title": "Додатне информације",
+    "high.text": "",
     "high.a1.title": "Школа",
     "high.a1.text":
       "Завршио Девету београдску гимназију „Михајло Петровић Алас“, природно-математички смер.",
     "high.a2.title": "Лични пројекти",
     "high.a2.text":
-      "Тренутно је активан један пројекат: Telegram-бот који уз помоћ вештачке интелигенције анализира коментаре испод YouTube видеа и приказује статистику. Јузернејм: @yt_analyser_bot.",
+      "Тренутно је активан један пројекат: Telegram-бот који уз помоћ вештачке интелигенције анализира коментаре испод YouTube видеа и приказује статистику. Корисничко име: @yt_analyser_bot.",
     "high.a3.title": "Планови",
-    "high.a3.text": "Планирам да завршим основне студије и упишем мастер.",
+    "high.a3.text": "Планирам да завршим бакалавријат и упишем мастер.",
 
     "links.title": "Линкови",
-    "links.text": "Профили и контакти су испод.",
+    "links.text": "Профили и контакти.",
     "links.open": "Отвори",
-    "links.note": "Пиши - одговорићу.",
+    "links.note": "Пишите - радо ћу одговорити.",
 
-    "footer.left": "Визитка",
+    "footer.left": "Сајт-визитка",
   },
 };
+
 
 
   function calcAge(birthDate, now = new Date()) {
